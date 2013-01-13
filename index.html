@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<title>WebMidiLink</title>
+<style type="text/css">
+.hidden {
+ visibility:hidden;
+ position:absolute;
+ width:0px;
+ height:0px;
+ margin:0px;
+ padding:0px;
+ border-style:none;
+ border-width:0px;
+ max-width:0px;
+ max-height:0px;
+}
+#msg, #wmlmsg {
+ width: 18em;
+ height: 24em;
+ margin: 0 1em .5em 0;
+ padding: .5em;
+ background-color:#eee;
+ border:solid 1px #888;
+ white-space:pre;
+ font-family: Ricty, Inconsolata, monospace;
+ font-size: 1em;
+ overflow:auto;
+}
+#logJazz, #logWML {
+ float: left;
+}
+#wmlmsg {
+ width:10em;
+}
+#errmsg {
+ color: red;
+ padding: 0 1em;
+}
+</style>
+</head>
+
+<body>
+
+<h1>WebMidiLink</h1>
+
+<object id="Jazz1" classid="CLSID:1ACE1618-1C7D-4561-AEE1-34842AA85E90" class="hidden">
+  <object id="Jazz2" type="audio/x-jazz" class="hidden">
+    <p style="visibility:visible;">This page requires <a href=http://jazz-soft.net>Jazz-Plugin</a> ...</p>
+  </object>
+</object>
+
+	<p>
+		MIDI Device:
+		<select id=midiIn onchange='changeMidi();'>
+			<option value="">Not connected</option>
+		</select>
+	</p>
+
+	<p>
+		<div id=logJazz>
+			MIDI IN (Jazz Plugin):
+			<div id=msg></div>
+		</div>
+	</p>
+	<p>
+		<div id=logWML>
+			WebMidiLink:
+			<div id=wmlmsg></div>
+		</div>
+	</p>
+
+	<p>
+		Instrument:<br>
+		<input id="url" type="text" value="http://www.g200kg.com/en/docs/webmodular/webmodular.html" size=60/>
+		<br>
+		<select id="synthsel" onchange="document.getElementById('url').value = synthlist_g[this.selectedIndex].url;" ></select>
+		<button onclick="wml.AddSynth(document.getElementById('url').value)">Load</button><span id="errmsg"></span>
+	</p>
+
+	<script type="text/javascript" src="jazz.js"></script>
+	<script type="text/javascript" src="inst_loader.js"></script>
+	<script type="text/javascript" src="http://www.g200kg.com/webmidilink/synthlist.js"></script>
+	<script type="text/javascript">
+		AddSynthList();
+	</script>
+	<script type="text/javascript">
+//// Initialize
+Jazz=document.getElementById("Jazz1"); if(!Jazz || !Jazz.isJazz) Jazz = document.getElementById("Jazz2");
+msg=document.getElementById("msg");
+	</script>
+
+</body>
+</html>
